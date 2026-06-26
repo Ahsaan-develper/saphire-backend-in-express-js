@@ -1,0 +1,34 @@
+import express from "express";
+import { connectDB } from "./config/db.js";
+import { InternalServerError } from "./middleware/error.middleware.js";
+import { _config } from "./config/envConfig.js";
+import cookieParser from "cookie-parser";
+import adminRouter from "./routes/admin.routes.js";
+import userRouter from "./routes/user.routes.js";
+
+
+const app = express();
+app.use(express.json());
+app.use(cookieParser());
+
+//admin
+app.use("/admin",adminRouter);
+
+//user
+app.use("/user", userRouter);
+
+const startServer = async()=>{
+    await connectDB();
+
+    try {
+
+        app.listen(_config.port , ()=>{
+            console.log("Server is running on port" , _config.port);
+        })
+    }catch(err){
+        process.exit(1);
+        throw new InternalServerError(err);
+    }
+}
+
+startServer();
