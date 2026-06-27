@@ -7,6 +7,7 @@ import adminRouter from "./routes/admin.routes.js";
 import userRouter from "./routes/user.routes.js";
 import itemRouter from "./routes/item.routes.js";
 import discountRouter from "./routes/discount.routes.js";
+import { cartRouter } from "./routes/cart.routes.js";
 
 
 const app = express();
@@ -24,6 +25,9 @@ app.use("/item" , itemRouter);
 
 //discount
 app.use("/discount", discountRouter);
+
+//cart 
+app.use("/cart" , cartRouter);
 
 const startServer = async()=>{
     await connectDB();

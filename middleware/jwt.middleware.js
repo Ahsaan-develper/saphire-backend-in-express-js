@@ -5,7 +5,7 @@ import User from "../models/user.models.js"
 import Admin from "../models/admin.models.js"
 export const generate_access_token = (userID , role="user")=>{
     const secret = role === "admin" ? _config.JWT_ADMIN_ACCESS_KEY : _config.JWT_USER_ACCESS_KEY
-    return jwt.sign({sub : userID.toString() , role} , secret, {"expiresIn" :"15m"});
+    return jwt.sign({sub : userID.toString() , role} , secret, {"expiresIn" :"7d"});
 }
 
 

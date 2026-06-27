@@ -4,9 +4,9 @@ const cartSchema = new mongoose.Schema({
     user : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "User",
-        required : true
+        default : null
     },
-    guest_id : { type : String , required : true }
+    guestId : { type : String  ,  default : null }
 } , {timestamps : true});
 
 export default mongoose.model("Cart" , cartSchema);
