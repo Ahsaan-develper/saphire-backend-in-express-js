@@ -29,6 +29,28 @@ export const verify_token = (token) =>{
     return jwt.verify(token , secret);
 }
 
+
+export const verifyAccessToken = (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader?.startsWith("Bearer ")) {
+            return res.status(401).json({ message: "No token provided" });
+        }
+
+        const token = authHeader.split(" ")[1];
+        
+        // Your existing function works here
+        const payload = verify_token(token);
+        
+        req.userId = payload.sub;
+        req.role = payload.role;
+        next();
+        
+    } catch (err) {
+        return res.status(401).json({ message: err.message || "Invalid token" });
+    }
+};
+
 export const verify_refresh_token = (token) => {
     const decoded = jwt.decode(token);
     if (!decoded?.role) throw new Error("Invalid token payload");

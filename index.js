@@ -5,6 +5,8 @@ import { _config } from "./config/envConfig.js";
 import cookieParser from "cookie-parser";
 import adminRouter from "./routes/admin.routes.js";
 import userRouter from "./routes/user.routes.js";
+import itemRouter from "./routes/item.routes.js";
+import discountRouter from "./routes/discount.routes.js";
 
 
 const app = express();
@@ -16,6 +18,12 @@ app.use("/admin",adminRouter);
 
 //user
 app.use("/user", userRouter);
+
+//item 
+app.use("/item" , itemRouter);
+
+//discount
+app.use("/discount", discountRouter);
 
 const startServer = async()=>{
     await connectDB();

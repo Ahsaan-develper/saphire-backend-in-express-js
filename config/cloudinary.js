@@ -4,7 +4,7 @@ import { BadRequestError , InternalServerError } from "../middleware/error.middl
 
 
 cloudinary.config({ 
-  cloud_name: _config.cloud_name, 
+   cloud_name : _config.cloudinary_name,
   api_key: _config.cloudinary_api_key, 
   api_secret: _config.cloudinary_secret_key
 });
@@ -19,11 +19,16 @@ export const uploadToCloudinary = async (buffer , mimetype)=>{
             const response = await new Promise((resolve , reject)=>{
                     cloudinary.uploader.upload_stream(
                         {resource_type : "auto"},
-                        (error , result )=> (error    ? reject (erorr) : resolve(result))
+                        (error , result )=> (error    ? reject (error) : resolve(result))
                         ).end(buffer);
             });
-             return response.secure_url;
+             return {
+            url: response.secure_url,
+            publicId: response.public_id
+        };
         }catch(err){
             throw new InternalServerError(err)
         }
 }
+
+

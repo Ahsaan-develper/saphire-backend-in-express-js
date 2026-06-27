@@ -4,7 +4,7 @@ const paymentSchema = new mongoose.Schema({
     method : {type : String , required : true},
     billing_address : {type : String , required : true},
      order : {
-        type : Schema.Types.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         ref : "Order",
         required : true,
     },

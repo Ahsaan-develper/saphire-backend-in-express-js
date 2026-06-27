@@ -10,12 +10,12 @@ const shipmentSchema  = new mongoose.Schema ({
      postalCode : {type : String , required : true},
      phone : {type : String , required : true},
       user : {
-        type : Schema.Types.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         ref : "User",
         required : true,
     },
      order : {
-        type : Schema.Types.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         ref : "Order",
         required : true,
     },
