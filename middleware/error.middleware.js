@@ -53,3 +53,21 @@ class InternalServerError extends AppError {
 }
 
 export  {BadRequestError , UnAuthorizedError , ConflictError , NotFoundError , ValidationError , InternalServerError  , ForbiddenError};
+
+export const globalErrorHandler = (err, req, res, next) => {
+
+    // known custom errors
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Something went wrong";
+
+    // log full error in dev only
+    if (process.env.NODE_ENV !== "production") {
+        console.error(`[${err.name}]`, err.message);
+    }
+
+    res.status(statusCode).json({
+        success: false,
+        error: err.name || "Error",
+        message
+    });
+};

@@ -11,6 +11,7 @@ import { cartRouter } from "./routes/cart.routes.js";
 import { orderRouter } from "./routes/order.routes.js";
 import { paymentRouter } from "./routes/payment.routes.js";
 import { shipmentRouter } from "./routes/shipment.routes.js";
+import { globalErrorHandler } from "./middleware/error.middleware.js";
 
 
 const app = express();
@@ -47,7 +48,7 @@ app.use("/payment" , paymentRouter)
 // shipment 
 app.use("/shipment" , shipmentRouter);
 
-
+app.use(globalErrorHandler);
 export default app;
 
 if (_config.NODE_ENV !== "production") {

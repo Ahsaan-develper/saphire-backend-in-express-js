@@ -11,9 +11,9 @@ const itemRouter = Router();
 
 itemRouter.post("/"  , verifyAccessToken, uploadToMulter.array("images" , 4) , addItem);
 
-// get itemss by fabric 
+// get items by fabric 
 
-itemRouter.get("/" , verifyAccessToken , getItemByFabric);
+itemRouter.get("/"  , getItemByFabric);
 
 // update an item 
 

@@ -5,17 +5,16 @@ import Images  from  "../models/image.models.js";
 import {v2 as Cloudinary} from "cloudinary";
 //  add an item 
 
-export const addItem = async (req , res)=>{
+export const addItem = async (req , res , next)=>{
+    try{
     const { title , price, description , fabricType , product_type} = req.body ;
     if( !title || !price || !description || !fabricType || !product_type) throw new BadRequestError("PLease fill all fields");
-      if (!req.files || req.files.length === 0) {
+    if (!req.files || req.files.length === 0) {
         throw new BadRequestError("At least one image is required");
     }
         if (req.files.length !== 4) {
         throw new BadRequestError("Exactly 4 images required: front, back, middle, side");
     }
-
-    try{
 
         const newItem = await Item.create({
             title : title.trim(),
@@ -47,14 +46,14 @@ export const addItem = async (req , res)=>{
             }
         });
     }catch(err){
-        throw new InternalServerError(err);
+        next(err);
     }
 }
 
 
 // get items by fabric type 
 
-export const getItemByFabric = async (req , res)=>{
+export const getItemByFabric = async (req , res , next)=>{
     const {fabricType } = req.body ;
 
     if( !fabricType) throw new BadRequestError(" Fabric type is missing");
@@ -81,7 +80,7 @@ export const getItemByFabric = async (req , res)=>{
     });
 
     }catch(err){
-        throw new InternalServerError(err);
+        next(err);
     }
 }
 
