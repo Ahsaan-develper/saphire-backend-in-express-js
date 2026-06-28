@@ -12,9 +12,7 @@ export const addItem = async (req , res , next)=>{
     if (!req.files || req.files.length === 0) {
         throw new BadRequestError("At least one image is required");
     }
-        if (req.files.length !== 4) {
-        throw new BadRequestError("Exactly 4 images required: front, back, middle, side");
-    }
+       
 
         const newItem = await Item.create({
             title : title.trim(),
@@ -24,16 +22,30 @@ export const addItem = async (req , res , next)=>{
         product_type
         });
 
-        const uploadedURI = await Promise.all(
-            req.files.map(file => uploadToCloudinary(file.buffer))
-        );
-        const autoRoles = ["front", "back", "middle", "side"];
-         const imageDocs = uploadedURI.map((result, index) => ({
-            uri: result.url,          
-            publicId: result.publicId, 
-            role: autoRoles[index],
-            item: newItem._id
-        }));
+        // const uploadedURI = await Promise.all(
+        //     req.files.map(file => uploadToCloudinary(file.buffer))
+        // );
+        // const autoRoles = ["front", "back", "middle", "side"];
+        //  const imageDocs = uploadedURI.map((result, index) => ({
+        //     uri: result.url,          
+        //     publicId: result.publicId, 
+        //     role: autoRoles[index],
+        //     item: newItem._id
+        // }));
+
+
+         const autoRoles = ["front", "back", "middle", "side"];
+        const imageDocs = [];
+
+        for (let i = 0; i < req.files.length; i++) {
+            const result = await uploadToCloudinary(req.files[i].buffer);
+            imageDocs.push({
+                uri: result.url,
+                publicId: result.publicId,
+                role: autoRoles[i],
+                item: newItem._id
+            });
+        }
 
         await Images.insertMany(imageDocs);
 
