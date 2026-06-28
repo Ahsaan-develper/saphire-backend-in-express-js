@@ -1,6 +1,6 @@
-import express, { urlencoded } from "express";
+import { urlencoded } from "express";
+import express from "express";
 import { connectDB } from "./config/db.js";
-import { InternalServerError } from "./middleware/error.middleware.js";
 import { _config } from "./config/envConfig.js";
 import cookieParser from "cookie-parser";
 import adminRouter from "./routes/admin.routes.js";
@@ -48,23 +48,22 @@ app.use("/payment" , paymentRouter)
 app.use("/shipment" , shipmentRouter);
 
 
-
-if(_config.NODE_ENV !="production"){
-    const startServer = async()=>{
-    await connectDB();
-
-    try {
-
-        app.listen(_config.port , ()=>{
-            console.log("Server is running on port" , _config.port);
-        })
-    }catch(err){
-        throw new InternalServerError(err);
-        process.exit(1);
-    }
-}
-
-startServer();
-}
-
 export default app;
+
+if (_config.NODE_ENV !== "production") {
+    const startServer = async () => {
+        try {
+            await connectDB(); 
+            app.listen(_config.port, () => {
+                console.log("Server running on port", _config.port);
+            });
+        } catch (err) {
+            console.error("Failed to connect DB:", err.message);
+            process.exit(1);
+        }
+    };
+
+    startServer();
+}
+
+

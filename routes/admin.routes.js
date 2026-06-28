@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { deleteAdmin, loginAdmin, registerAdmin, updateAdmin } from "../controller/admin.controller.js";
 import { Admin } from "mongodb";
+import { verifyAccessToken } from "../middleware/jwt.middleware.js";
 
 
 
@@ -13,14 +14,14 @@ adminRouter.post("/" , registerAdmin);
 
 // login
 
-adminRouter.get("/" , loginAdmin);
+adminRouter.post("/admin" , loginAdmin);
 
 // update an admin
 
-adminRouter.put("/:id" , updateAdmin);
+adminRouter.put("/:id"  , verifyAccessToken, updateAdmin);
 
 // delete an admin
 
-adminRouter.delete("/" , deleteAdmin);
+adminRouter.delete("/"  , verifyAccessToken, deleteAdmin);
 
 export default adminRouter;

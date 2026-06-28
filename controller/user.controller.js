@@ -112,8 +112,10 @@ export const updateUser = async (req ,res)=>{
         if(lastName ) user.lastName = lastName;
         if(email ) user.email = email;
 
-        const hashedPassword = await bcrypt.hash(password , 10),
-        if(password ) user.password = hashedPassword;
+        const hashedPassword = await bcrypt.hash(password , 10);
+        if(password ) {
+            user.password = hashedPassword;
+        };
 
         res.status(200).json({
             message : "User is updated ",

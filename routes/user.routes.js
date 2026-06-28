@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { deleteUser, loginUser, registerUser, updateUser } from "../controller/user.controller.js";
+import { verifyAccessToken } from "../middleware/jwt.middleware.js";
 
 const userRouter = Router();
 
@@ -9,14 +10,14 @@ userRouter.post("/"  , registerUser);
 
 // login user
 
-userRouter.get("/"  , loginUser);
+userRouter.post("/login"  , loginUser);
 
 // update user 
 
-userRouter.put("/:id" , updateUser);
+userRouter.put("/:id",  verifyAccessToken , updateUser);
 
 // delete an user 
 
-userRouter.delete("/" , deleteUser);
+userRouter.delete("/"  , verifyAccessToken, deleteUser);
 
 export default userRouter;
