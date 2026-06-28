@@ -1,4 +1,4 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import { connectDB } from "./config/db.js";
 import { InternalServerError } from "./middleware/error.middleware.js";
 import { _config } from "./config/envConfig.js";
@@ -15,6 +15,7 @@ import { shipmentRouter } from "./routes/shipment.routes.js";
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended : true }));
 app.use(cookieParser());
 
 app.use(async ( req , res , next)=>{
@@ -58,8 +59,8 @@ if(_config.NODE_ENV !="production"){
             console.log("Server is running on port" , _config.port);
         })
     }catch(err){
-        process.exit(1);
         throw new InternalServerError(err);
+        process.exit(1);
     }
 }
 
