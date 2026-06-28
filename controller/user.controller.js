@@ -102,7 +102,7 @@ export const updateUser = async (req ,res)=>{
     
     try {
 
-        const user = await User.findById(id );
+        const user = await User.findById( id );
 
         if(!user ){
             throw new NotFoundError("User not found");

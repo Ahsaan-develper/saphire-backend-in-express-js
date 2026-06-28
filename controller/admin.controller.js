@@ -127,14 +127,17 @@ export const updateAdmin = async(req , res)=>{
         }
         if(lastName) admin.lastName = lastName;
         if(email) admin.email = email;
-        if(password) admin.password = password;
+        if(password){
+          const hashedPassword =  await bcrypt.hash(password , 10);
+            admin.password= hashedPassword;
+        }
 
         await admin.save();
 
         res.status(200).json({
             message : "Admin is updated ",
             data : {
-                _id: admin._id,
+            _id: admin._id,
         firstName: admin.firstName,
         lastName: admin.lastName,
         email: admin.email,
