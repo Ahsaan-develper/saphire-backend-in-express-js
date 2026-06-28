@@ -14,7 +14,7 @@ adminRouter.post("/" , registerAdmin);
 
 // login
 
-adminRouter.post("/admin" , loginAdmin);
+adminRouter.post("/login" , loginAdmin);
 
 // update an admin
 
