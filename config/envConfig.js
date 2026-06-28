@@ -12,4 +12,5 @@ dotenv.config();
     JWT_USER_REFRESH_KEY : process.env.JWT_USER_REFRESH_KEY,
     JWT_ADMIN_ACCESS_KEY : process.env.JWT_ADMIN_ACCESS_KEY,
     JWT_ADMIN_REFRESH_KEY : process.env.JWT_ADMIN_REFRESH_KEY,
+    NODE_ENV : process.env.NODE_ENV
 }

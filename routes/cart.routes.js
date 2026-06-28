@@ -16,4 +16,4 @@ cartRouter.put("/" , verifyAccessToken , updateCart);
 
 // delete an cart item 
 
-cartRouter.delete("/:cartItemId" , removeCartItems);
+cartRouter.delete("/:cartItemId" , verifyAccessToken , removeCartItems);

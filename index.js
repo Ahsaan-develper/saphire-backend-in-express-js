@@ -8,11 +8,19 @@ import userRouter from "./routes/user.routes.js";
 import itemRouter from "./routes/item.routes.js";
 import discountRouter from "./routes/discount.routes.js";
 import { cartRouter } from "./routes/cart.routes.js";
+import { orderRouter } from "./routes/order.routes.js";
+import { paymentRouter } from "./routes/payment.routes.js";
+import { shipmentRouter } from "./routes/shipment.routes.js";
 
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(async ( req , res , next)=>{
+    await connectDB();
+    next();
+})
 
 //admin
 app.use("/admin",adminRouter);
@@ -29,7 +37,19 @@ app.use("/discount", discountRouter);
 //cart 
 app.use("/cart" , cartRouter);
 
-const startServer = async()=>{
+//order
+app.use("/order", orderRouter);
+
+//payment
+app.use("/payment" , paymentRouter)
+
+// shipment 
+app.use("/shipment" , shipmentRouter);
+
+
+
+if(_config.NODE_ENV !="production"){
+    const startServer = async()=>{
     await connectDB();
 
     try {
@@ -44,3 +64,6 @@ const startServer = async()=>{
 }
 
 startServer();
+}
+
+export default app;

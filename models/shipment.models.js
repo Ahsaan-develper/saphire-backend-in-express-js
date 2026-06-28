@@ -9,7 +9,7 @@ const shipmentSchema  = new mongoose.Schema ({
      city : {type : String , required : true},
      postalCode : {type : String , required : true},
      phone : {type : String , required : true},
-      user : {
+    user : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "User",
         required : true,
