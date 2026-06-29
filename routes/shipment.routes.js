@@ -10,4 +10,4 @@ shipmentRouter.post("/" , verifyAccessToken , makeShipment);
 
 // get single shipment 
 
-shipmentRouter.get("/:orderId" ,  verifyAccessToken , getSpecificShipment);
+shipmentRouter.get("/:shipmentId" ,  verifyAccessToken , getSpecificShipment);

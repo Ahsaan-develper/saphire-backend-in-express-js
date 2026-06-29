@@ -50,7 +50,7 @@ export const makeShipment = async ( req , res )=>{
 
 export const getSpecificShipment = async ( req , res ) =>{
     const { shipmentId } = req.params ;
-    if ( !shipmentId ) throw new BadRequestError(" Order id is required to get shipment ");
+    if ( !shipmentId ) throw new BadRequestError(" shipment id is required to get shipment ");
 
     try {
 
