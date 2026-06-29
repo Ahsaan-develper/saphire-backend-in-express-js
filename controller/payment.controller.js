@@ -53,7 +53,7 @@ export const getSpecificOrderPayment = async ( req , res )=>{
     
         
         const orderPayment  =  await PaymentModel.findOne({ order :orderId });
-        if( !makePayment ) throw new NotFoundError(" Payment not given ");
+        if( !orderPayment ) throw new NotFoundError(" Payment not given ");
       
         res.status(200).json({
             data: {
