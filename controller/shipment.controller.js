@@ -49,12 +49,12 @@ export const makeShipment = async ( req , res )=>{
 // get a specific shipment 
 
 export const getSpecificShipment = async ( req , res ) =>{
-    const { orderId } = req.params ;
-    if ( !orderId ) throw new BadRequestError(" Order id is required to get shipment ");
+    const { shipmentId } = req.params ;
+    if ( !shipmentId ) throw new BadRequestError(" Order id is required to get shipment ");
 
     try {
 
-        const checkShipment = await ShipmentModel.findOne({ order : orderId });
+        const checkShipment = await ShipmentModel.findById(shipmentId );
 
         if ( !checkShipment ) throw new NotFoundError (" Shipment not made ");
 
